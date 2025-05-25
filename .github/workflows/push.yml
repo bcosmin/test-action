@@ -1,0 +1,15 @@
+name: Trigger Workflow
+on:
+  push:
+    branches:
+      - main
+jobs:
+  trigger-workflow:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger first Workflow
+        uses: peter-evans/workflow-dispatch@v1
+        with:
+          workflow: first-action.yml
+          token: ${{ secrets.GITHUB_TOKEN }}
+          inputs: '{"greeting":"Hello","goodbye":"Done - bye"}'
