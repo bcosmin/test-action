@@ -1,5 +1,13 @@
 name: First Workflow
-on: workflow_dispatch
+on:
+  workflow_call:
+    inputs:
+      greeting:
+        required: true
+        type: string
+      goodbye:
+        required: true
+        type: string
 jobs:
   first-job:
     runs-on: ubuntu-latest

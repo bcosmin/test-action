@@ -8,8 +8,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Trigger first Workflow
-        uses: peter-evans/workflow-dispatch@v3
+        uses: actions/github-script@v7
         with:
-          workflow: first-action.yml
-          token: ${{ secrets.GITHUB_TOKEN }}
-          inputs: '{"greeting":"Hello","goodbye":"Done - bye"}'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            await github.rest.actions.createWorkflowDispatch({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              workflow_id: 'first-action.yml',
+              ref: 'main',
+              inputs: {
+                greeting: 'Hello',
+                goodbye: 'Done - bye'
+              }
+            })
